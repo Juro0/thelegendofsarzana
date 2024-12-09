@@ -1,0 +1,174 @@
+
+:root {
+
+    --white: 235, 235, 235;
+    --black: 0, 0, 0;
+    --red: 216, 24, 42;
+    --gold: 129, 114, 30;
+    --brown: 61, 43, 18;
+
+    --clr-white: rgb(var(--white));
+    --clr-black: rgb(var(--black));
+    --clr-red: rgb(var(--red));
+    --clr-gold: rgb(var(--gold));
+    --clr-brown: rgb(var(--brown));
+
+    /* FONTS */
+    --fnt-zelda: 'HyliaSerif', serif;
+    --fnt-times: serif;
+
+    /* TRANSITION */
+    --transition: .3s ease all;
+
+}
+
+html, body {
+    height: 100%;
+    scroll-behavior: smooth;
+    background: var(--clr-black);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+*::selection {
+    background: none;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+    transition: var(--transition);
+}
+
+.page video.bg {
+    height: 100%;
+}
+
+.clickable, .clickable * {cursor: pointer}
+
+.hide {display: none !important}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* ======================================== BUTTONS */
+
+button.special {
+    width: 189px;
+    height: 63px;
+    padding-bottom: 3px;
+    font-family: var(--fnt-zelda);
+    font-size: 20px;
+    color: var(--clr-white);
+    letter-spacing: 3px;
+    border: none;
+    background: url('../assets/img/btn-bg.png') no-repeat top left;
+    cursor: pointer;
+}
+
+button.answer {
+    background: var(--clr-gold);
+    border: 3px solid var(--clr-brown);
+    border-radius: 3px;
+    font-family: var(--fnt-times);
+    font-size: 16px;
+    color: var(--clr-white);
+    letter-spacing: .3px;
+    padding: 4px 30px;
+    cursor: pointer;
+}
+
+/* ======================================== OVER POPUP */
+
+.page:not(:has(.over.hide)) video.bg {
+    opacity: .2;
+}
+
+.page .over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ======================================== QUIZ */
+
+.page .over.quiz {
+    width: 535px;
+    height: 340px;
+    background: url('../assets/img/parchment.png');
+    padding: 0 50px;
+}
+
+.page .over.quiz p.text {
+    font-family: var(--fnt-times);
+    font-size: 20px;
+    color: var(--clr-black);
+    text-align: center;
+    text-wrap: balance;
+    margin-bottom: 30px;
+}
+
+.page .over.quiz button {
+    margin: 0 8px;
+}
+
+/* ======================================== CHOICE */
+
+.page .over.choice {
+    width: 100%;
+    top: unset;
+    bottom: 150px;
+    flex-direction: row;
+    justify-content: center;
+    transform: translateX(-50%);
+}
+
+.page .over.choice button.special {
+    margin: 0 20px;
+    font-size: 14px;
+    letter-spacing: .3px;
+}
+
+/* ======================================== P1-3 */
+
+#p1 .over img.logo,
+#p3 .over img.logo {
+    width: 400px;
+}
+
+#p3 p.points {
+    margin: 30px 0;
+    font-family: monospace;
+    font-size: 20px;
+    color: var(--clr-white);
+    letter-spacing: .3px;
+}
+
+/* ======================================== P2 */
+
+#points {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    font-family: monospace;
+    font-size: 20px;
+    color: var(--clr-white);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    letter-spacing: .5px;
+}

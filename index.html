@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <title>The Legend Of Sarzana</title>
+        <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+    
+        <link rel="stylesheet" href="style/fonts.css">
+        <link rel="stylesheet" href="style/style.css">
+    
+    </head>
+
+    <body>
+
+        <!-- ? finita -->
+        <div class="page" id="p1">
+
+            <video src="assets/video/earth_animation.mp4" class="bg" onended="this.parentElement.children[1].classList.remove('hide')" autoplay muted></video>
+
+            <div class="over hide">
+
+                <img src="assets/img/logo.png" class="logo" draggable="false">
+
+                <button onclick="play_audio('click', .5); document.querySelector('#p1').classList.add('hide'); document.querySelector('#p2').classList.remove('hide'); set_page('1')" class="special">PLAY</button>
+
+            </div>
+
+        </div>
+        
+        <div class="page hide" id="p2">
+
+            <p id="points">0</p>
+
+            <video src="" class="bg" id="video" autoplay></video>
+
+            <div class="over quiz hide">
+
+                <p class="text">Quale famoso poeta è passato per Sarzana nel medioevo?</p>
+
+                <div class="buttons">
+                    <button class="answer">Dante Alighieri</button>
+                    <button class="answer">Guido Guinizzelli</button>
+                </div>
+
+            </div>
+
+            <div class="over choice">
+
+                <button class="special">Max 17 Caratteri</button>
+                <button class="special">Direzione 2</button>
+                <button class="special">Direzione 3</button>
+                <button class="special">Direzione 4</button>
+
+            </div>
+
+        </div>
+
+        <!-- ? finita -->
+        <div class="page hide" id="p3">
+
+            <div class="over">
+
+                <img src="assets/img/logo.png" class="logo" draggable="false">
+
+                <p class="points">Punti: 0</p>
+
+                <button onclick="location.reload()" class="special">rigioca</button>
+                <button onclick="alert('Gruppo PBL:\n- Juri Gemignani\n- Pietro Scopsi\n- Anna Garbusi\n- Chiara Tamagna\n- Emma Dadich\n\nAssets from Freepik.')" class="special" style="margin-top: 20px">crediti</button>
+
+            </div>
+
+        </div>
+        
+        <script src="script/app.js"></script>
+
+    </body>
+
+</html>

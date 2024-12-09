@@ -1,0 +1,6 @@
+
+@font-face {
+    font-family: 'HyliaSerif';
+    src: url('../assets/fonts/HyliaSerif.woff2') format('woff2');
+    font-display: fallback;
+}
