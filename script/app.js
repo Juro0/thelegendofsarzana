@@ -2,7 +2,7 @@
 const video_element = document.querySelector('#video')
 const quiz_element = document.querySelector('#p2 .quiz')
 const choice_element = document.querySelector('#p2 .choice')
-const points_element = document.querySelector('#points')
+const life_element = document.querySelector('#life')
 
 const video_path_template = 'assets/video/?.mp4'
 const waiting_time = 500
@@ -11,29 +11,200 @@ var ambient = undefined;
 
 const action_list = {
     '1': {
-        type: 'choice',
+        type: 'quiz',
+        question: 'Quanti torrioni sono presenti a Sarzana?',
         answers: [
-            ['Risposta 2', '2'],
-            ['Risposta 3', '3']
-        ]
+            ['3', false],
+            ['4', true]
+        ],
+        next: '2'
     },
     '2': {
-        type: 'quiz',
-        question: 'Di che colore era il cavallo bianco di Napoleone?',
-        answers: [
-            ['Sbagliata', false],
-            ['Corretta', true]
-        ],
-        next: '1'
+        type: 'next',
+        next: '3'
     },
     '3': {
-        type: 'next',
-        next: '4'
+        type: 'choice',
+        answers: [
+            ['Comune', '4'],
+            ['Palazzo Podestà', '5'],
+            ['Fontana', '6'],
+            ['Continua...', '7'],
+        ]
     },
     '4': {
+        type: 'quiz',
+        question: 'In che anno Dante Alighieri passò da Sarzana?',
+        answers: [
+            ['1306', true],
+            ['1409', false]
+        ],
+        next: '3'
+    },
+    '5': {
+        type: 'quiz',
+        question: 'A chi apparteneva Palazzo Podestà?',
+        answers: [
+            ['Ad un governatore', true],
+            ['Ad un nobile', false]
+        ],
+        next: '3'
+    },
+    '6': {
+        type: 'quiz',
+        question: 'A chi è dedicata la statua in Piazza Matteotti?',
+        answers: [
+            ['Ad un angelo', false],
+            ['Ad un soldato', true]
+        ],
+        next: '3'
+    },
+    '7': {
+        type: 'quiz',
+        question: 'A quale secolo risale la chiesa di Sant\'Andrea?',
+        answers: [
+            ['XI secolo', true],
+            ['XII secolo', false]
+        ],
+        next: '8'
+    },
+    '8': {
+        type: 'next',
+        next: '9'
+    },
+    '9': {
+        type: 'choice',
+        answers: [
+            ['Trattato Sarzana', '10'],
+            ['Santa Maria', '11'],
+            ['Continua', '12']
+        ]
+    },
+    '10': {
+        type: 'quiz',
+        question: 'Con quale potenza Milano firmò la tregua a Sarzana?',
+        answers: [
+            ['Genova', false],
+            ['Firenze', true]
+        ],
+        next: '9'
+    },
+    '11': {
+        type: 'quiz',
+        question: 'Quale papa era nato a Sarzana?',
+        answers: [
+            ['Niccolò V', true],
+            ['Pio II', false]
+        ],
+        next: '9'
+    },
+    '12': {
+        type: 'next',
+        next: '13'
+    },
+    '13': {
+        type: 'choice',
+        answers: [
+            ['Cavalcanti', '14'],
+            ['Statua', '15'],
+            ['Continua...', '16'],
+        ]
+    },
+    '14': {
+        type: 'quiz',
+        question: 'In che città venne esiliato Cavalcanti?',
+        answers: [
+            ['Reggio Calabria', false],
+            ['Sarzana', true]
+        ],
+        next: '13'
+    },
+    '15': {
+        type: 'quiz',
+        question: 'Come viene soprannominato Garibaldi?',
+        answers: [
+            ['Eroe dei Due Mondi', true],
+            ['Eroe d\'Italia', false]
+        ],
+        next: '13'
+    },
+    '16': {
+        type: 'next',
+        next: '17'
+    },
+    '17': {
+        type: 'choice',
+        answers: [
+            ['Fortezza', '18'],
+            ['Castracani', '19'],
+            ['Via Francigena', '20'],
+            ['Continua...', '21']
+        ]
+    },
+    '18': {
+        type: 'quiz',
+        question: 'Da chi fu costruite la fortezza Firmafede?',
+        answers: [
+            ['Genovesi', true],
+            ['Fiorentini', false]
+        ],
+        next: '17'
+    },
+    '19': {
+        type: 'quiz',
+        question: 'Cosa fu Castruccio Castracani?',
+        answers: [
+            ['Un comandante', true],
+            ['Un nobile', false]
+        ],
+        next: '17'
+    },
+    '20': {
+        type: 'quiz',
+        question: 'Dove termina la Via Francigena?',
+        answers: [
+            ['Roma', true],
+            ['Firenze', false]
+        ],
+        next: '17'
+    },
+    '21': {
+        type: 'quiz',
+        question: 'Quale stemma si trova su Porta Romana?',
+        answers: [
+            ['Romano', false],
+            ['Genovese', true]
+        ],
+        next: '22'
+    },
+    '22': {
         type: 'next',
         next: -1
     }
+}
+
+function kill_life() {
+
+    const life_count = life_element.innerText.length - 1
+
+    console.log(life_count)
+
+    life_element.innerText = ''
+
+    for(let i=0; i<life_count; i++) {
+
+        life_element.innerText += '♥'
+
+    }
+
+    if(life_count==0){
+
+        alert('Sei morto.\n\nProva a riiniziare la partita, evitando di sbagliare domande semplicissime!')
+
+        location.reload()
+
+    }
+
 }
 
 function play_audio(name, volume) {
@@ -73,16 +244,14 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
 
             // ! start correct SFX
 
-            points_element.innerText = parseInt(points_element.innerText) + 1
-
         } else {
             
             // WRONG
             
             // ! start wrong SFX
             
-            points_element.innerText = parseInt(points_element.innerText) - 1
-        
+            kill_life()
+
         }
 
         ans_btn_1.onclick = () => {}
@@ -102,16 +271,14 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
 
             // ! start correct SFX
 
-            points_element.innerText = parseInt(points_element.innerText) + 1
-
         } else {
             
             // WRONG
             
             // ! start wrong SFX
             
-            points_element.innerText = parseInt(points_element.innerText) - 1
-        
+            kill_life()
+
         }
 
         ans_btn_1.onclick = () => {}
@@ -153,7 +320,6 @@ function set_page(code) {
     if(code == -1) {
 
         document.querySelector('#p2').classList.add('hide')
-        document.querySelector('#p3 p.points').innerText = 'Punti: ' + points_element.innerText
         document.querySelector('#p3').classList.remove('hide')
 
         return
@@ -170,7 +336,7 @@ function set_page(code) {
 
     if(action.type == 'choice') {
         
-        ambient = play_ambient('test', .8)
+        ambient = play_ambient('quest', .3)
 
         set_choice(action.answers)
 
