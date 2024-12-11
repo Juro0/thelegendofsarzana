@@ -220,7 +220,7 @@ function kill_life() {
 
 function play_audio(name, volume) {
 
-    const audio = new Audio(`../assets/sfx/${name}.mp3`)
+    const audio = new Audio(`./assets/sfx/${name}.mp3`)
     
     audio.volume = volume
     audio.play()
@@ -229,7 +229,7 @@ function play_audio(name, volume) {
 
 function play_ambient(name, volume) {
 
-    const audio = new Audio(`../assets/audio/${name}.mp3`)
+    const audio = new Audio(`./assets/audio/${name}.mp3`)
     
     audio.volume = volume
     audio.play()
