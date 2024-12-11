@@ -17,16 +17,15 @@
 
     <body>
 
-        <!-- ? finita -->
         <div class="page" id="p1">
 
-            <video src="assets/video/earth_animation.mp4" class="bg" onended="this.parentElement.children[1].classList.remove('hide')" autoplay muted></video>
+            <video src="assets/video/earth_animation.mp4" class="bg" onended="this.parentElement.children[1].classList.remove('hide')" autoplay disablePictureInPicture muted></video>
 
             <div class="over hide">
 
-                <img src="assets/img/logo.png" class="logo" draggable="false">
+                <img src="assets/img/logo.png" class="logo animate" draggable="false">
 
-                <button onclick="play_audio('click', .2); document.querySelector('#p1').classList.add('hide'); document.querySelector('#p2').classList.remove('hide'); set_page('1')" class="special">PLAY</button>
+                <button onclick="play_audio('click', .2); document.querySelector('#p1').classList.add('hide'); document.querySelector('#p2').classList.remove('hide'); set_page('1')" class="special shake">PLAY</button>
 
             </div>
 
@@ -36,7 +35,7 @@
 
             <p id="life">♡♡♡♡♡</p>
 
-            <video src="" class="bg" id="video" autoplay></video>
+            <video src="" class="bg" id="video" autoplay disablePictureInPicture></video>
 
             <div class="over quiz hide">
 
@@ -60,12 +59,13 @@
 
         </div>
 
-        <!-- ? finita -->
         <div class="page hide" id="p3">
+
+            <img src="assets/img/start-bg.png" class="bg">
 
             <div class="over">
 
-                <img src="assets/img/logo.png" class="logo" draggable="false">
+                <img src="assets/img/logo.png" class="logo animate" draggable="false">
 
                 <button onclick="location.reload()" class="special">rigioca</button>
                 <button onclick="alert('Gruppo PBL:\n- Juri Gemignani\n- Pietro Scopsi\n- Anna Garbusi\n- Chiara Tamagna\n- Emma Dadich\n\nAssets from Freepik.')" class="special" style="margin-top: 20px">crediti</button>

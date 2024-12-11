@@ -60,6 +60,10 @@ const action_list = {
         next: '3'
     },
     '7': {
+        type: 'next',
+        next: '7p2'
+    },
+    '7p2': {
         type: 'quiz',
         question: 'A quale secolo risale la chiesa di Sant\'Andrea?',
         answers: [
@@ -187,8 +191,6 @@ function kill_life() {
 
     const life_count = life_element.innerText.length - 1
 
-    console.log(life_count)
-
     life_element.innerText = ''
 
     for(let i=0; i<life_count; i++) {
@@ -199,9 +201,18 @@ function kill_life() {
 
     if(life_count==0){
 
+        try {
+            ambient.pause()
+        } catch {}
+        
+        video_element.pause()
+
         alert('Sei morto.\n\nProva a riiniziare la partita, evitando di sbagliare domande semplicissime!')
 
-        location.reload()
+        play_ambient('bg', .2)
+
+        document.querySelector('#p2').classList.add('hide')
+        document.querySelector('#p3').classList.remove('hide')
 
     }
 
@@ -249,7 +260,7 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
         // CORRECT
         if(ans_btn_1.innerText == correct_text) {
 
-            // ! start correct SFX
+            play_audio('correct', .2)
 
             ans_btn_1.classList.add('correct')
             
@@ -257,8 +268,6 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
             
             // WRONG
             
-            // ! start wrong SFX
-
             ans_btn_1.classList.add('wrong')
             
             kill_life()
@@ -280,7 +289,7 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
         // CORRECT
         if(ans_btn_2.innerText == correct_text) {
 
-            // ! start correct SFX
+            play_audio('correct', .2)
 
             ans_btn_2.classList.add('correct')
 
@@ -288,8 +297,6 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
             
             // WRONG
             
-            // ! start wrong SFX
-
             ans_btn_2.classList.add('wrong')
             
             kill_life()
@@ -337,6 +344,8 @@ function set_page(code) {
         document.querySelector('#p2').classList.add('hide')
         document.querySelector('#p3').classList.remove('hide')
 
+        play_ambient('bg', .2)
+
         return
 
     }
@@ -351,7 +360,7 @@ function set_page(code) {
 
     if(action.type == 'choice') {
         
-        ambient = play_ambient('quest', .1)
+        ambient = play_ambient('quest', .06)
 
         setTimeout(()=>{
             set_choice(action.answers)
