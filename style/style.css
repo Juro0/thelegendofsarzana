@@ -18,7 +18,7 @@
     --fnt-times: serif;
 
     /* TRANSITION */
-    --transition: .3s ease all;
+    --transition: .6s ease all;
 
 }
 
@@ -55,7 +55,7 @@ html, body {
 
 .clickable, .clickable * {cursor: pointer}
 
-.hide {display: none !important}
+.hide:not(.quiz):not(.choice) {display: none !important}
 
 ::-webkit-scrollbar {
     width: 0;
@@ -79,7 +79,8 @@ button.special {
 
 button.answer {
     background: var(--clr-brown);
-    border: 3px solid var(--clr-gold);
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .8);
     border-radius: 5px;
     font-family: var(--fnt-times);
     font-size: 16px;
@@ -87,6 +88,19 @@ button.answer {
     letter-spacing: .4px;
     padding: 4px 30px;
     cursor: pointer;
+    transition-property: .5s ease transform;
+}
+
+button.answer:hover {
+    transform: translateY(-1px);
+}
+
+button.answer.correct {
+    outline: 3px solid #1eb742;
+}
+
+button.answer.wrong {
+    outline: 3px solid #b71e1e;
 }
 
 /* ======================================== OVER POPUP */
@@ -113,7 +127,18 @@ button.answer {
     width: 535px;
     height: 340px;
     background: url('../assets/img/parchment.png');
-    padding: 0 50px;
+    padding: 0 60px;
+    transition: var(--transition);
+}
+
+.page .over.quiz.hide {
+    translate: -2000px 0;
+    opacity: 0;
+}
+
+.page .over.quiz:not(.hide) {
+    translate: 0 0;
+    opacity: 1;
 }
 
 .page .over.quiz p.text {
@@ -122,7 +147,8 @@ button.answer {
     color: var(--clr-black);
     text-align: center;
     text-wrap: balance;
-    margin: 10px 0 30px;
+    padding-top: 20px;
+    margin-bottom: 30px;
 }
 
 .page .over.quiz button {
@@ -134,10 +160,21 @@ button.answer {
 .page .over.choice {
     width: 100%;
     top: unset;
-    bottom: 150px;
+    bottom: 100px;
     flex-direction: row;
     justify-content: center;
     transform: translateX(-50%);
+    transition: var(--transition);
+}
+
+.page .over.choice.hide {
+    translate: 0 500px;
+    opacity: 0;
+}
+
+.page .over.choice:not(.hide) {
+    translate: 0 0;
+    opacity: 1;
 }
 
 .page .over.choice button.special {
@@ -171,5 +208,5 @@ button.answer {
     font-size: 30px;
     color: #f00 !important;
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: 7px;
 }

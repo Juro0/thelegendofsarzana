@@ -5,7 +5,7 @@ const choice_element = document.querySelector('#p2 .choice')
 const life_element = document.querySelector('#life')
 
 const video_path_template = 'assets/video/?.mp4'
-const waiting_time = 500
+const waiting_time = 1000
 
 var ambient = undefined;
 
@@ -193,7 +193,7 @@ function kill_life() {
 
     for(let i=0; i<life_count; i++) {
 
-        life_element.innerText += '♥'
+        life_element.innerText += '♡'
 
     }
 
@@ -234,8 +234,15 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
     const ans_btn_1 = quiz_element.querySelector('.buttons').children[0]
     const ans_btn_2 = quiz_element.querySelector('.buttons').children[1]
 
+    ans_btn_1.classList.remove('correct')
+    ans_btn_1.classList.remove('wrong')
+    ans_btn_2.classList.remove('correct')
+    ans_btn_2.classList.remove('wrong')
+
     ans_btn_1.innerText = ans1
     ans_btn_2.innerText = ans2
+
+    ambient = play_ambient('quest', .1)
 
     ans_btn_1.onclick = () => {
 
@@ -244,11 +251,15 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
 
             // ! start correct SFX
 
+            ans_btn_1.classList.add('correct')
+            
         } else {
             
             // WRONG
             
             // ! start wrong SFX
+
+            ans_btn_1.classList.add('wrong')
             
             kill_life()
 
@@ -271,11 +282,15 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
 
             // ! start correct SFX
 
+            ans_btn_2.classList.add('correct')
+
         } else {
             
             // WRONG
             
             // ! start wrong SFX
+
+            ans_btn_2.classList.add('wrong')
             
             kill_life()
 
@@ -301,7 +316,7 @@ function set_choice(answers) {
 
     for(const answer of answers) {
 
-        choice_element.innerHTML += `<button class="special" onclick="play_audio('click', .5); set_page(${answer[1]})">${answer[0]}</button>`
+        choice_element.innerHTML += `<button class="special" onclick="play_audio('click', .2); set_page(${answer[1]})">${answer[0]}</button>`
 
     }
 
@@ -336,9 +351,11 @@ function set_page(code) {
 
     if(action.type == 'choice') {
         
-        ambient = play_ambient('quest', .3)
+        ambient = play_ambient('quest', .1)
 
-        set_choice(action.answers)
+        setTimeout(()=>{
+            set_choice(action.answers)
+        }, 4000)
 
     }
 
