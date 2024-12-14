@@ -195,7 +195,7 @@ function kill_life() {
 
     for(let i=0; i<life_count; i++) {
 
-        life_element.innerText += '♡'
+        life_element.innerText += '♥'
 
     }
 
@@ -214,13 +214,17 @@ function kill_life() {
         document.querySelector('#p2').classList.add('hide')
         document.querySelector('#p3').classList.remove('hide')
 
+        return true
+
+    } else {
+        return false
     }
 
 }
 
 function play_audio(name, volume) {
 
-    const audio = new Audio(`./assets/sfx/${name}.mp3`)
+    const audio = new Audio(`../assets/sfx/${name}.mp3`)
     
     audio.volume = volume
     audio.play()
@@ -229,7 +233,7 @@ function play_audio(name, volume) {
 
 function play_ambient(name, volume) {
 
-    const audio = new Audio(`./assets/audio/${name}.mp3`)
+    const audio = new Audio(`../assets/audio/${name}.mp3`)
     
     audio.volume = volume
     audio.play()
@@ -268,9 +272,15 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
             
             // WRONG
             
+            play_audio('wrong', .07)
+
             ans_btn_1.classList.add('wrong')
             
-            kill_life()
+            death = kill_life()
+
+            if(death) {
+                return
+            }
 
         }
 
@@ -297,9 +307,15 @@ function set_quiz(question, ans1, ans2, correct_text, end_code) {
             
             // WRONG
             
+            play_audio('wrong', .07)
+
             ans_btn_2.classList.add('wrong')
             
-            kill_life()
+            death = kill_life()
+
+            if(death) {
+                return
+            }
 
         }
 
@@ -385,3 +401,5 @@ function set_page(code) {
     }
 
 }
+
+window.alert('PBL')
